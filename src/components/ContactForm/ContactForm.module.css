@@ -1,0 +1,33 @@
+.contactForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.addBtn{
+    width: 90px;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin: 20px auto;
+    background-color: rgb(250, 237, 57);
+    cursor: pointer;
+    margin-top: 40px;
+    margin-bottom: 60px;
+
+    font-size: 12px;
+    font-weight: 600;
+    
+    
+}
+
+p{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input {
+    border-radius: 6px;
+    border: transparent;
+    height: 25px;
+    width: 250px;
+}
