@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import Search from './Search/Search';
 import ContactList from './ContactList/ContactList';
 import css from './App.module.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const phoneBookContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -40,11 +41,17 @@ const App = () => {
     }
   };
 
-  const createUser = data => {
-    setContacts([
-      ...contacts,
-      { name: data.name, id: nanoid(), number: data.number },
-    ]);
+  const createUser = ({ name, number }) => {
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      Notify.warning(`${name} is alredy in your contacts`);
+      return;
+    }
+
+    setContacts([...contacts, { name: name, id: nanoid(), number: number }]);
     // this.setState({
     //   contacts: [
     //     ...this.state.contacts,
@@ -78,12 +85,7 @@ const App = () => {
   return (
     <div className={css.appContainer}>
       <h1 className={css.titleText}>Phone book</h1>
-      <ContactForm
-        createUser={createUser}
-        // userNumber={number}
-        // userName={name}
-        contacts={contacts}
-      />
+      <ContactForm onSubmit={createUser} />
       <p className={css.searchText}>Find contacts by name</p>
       <Search onChange={handlerSearch} value={filter} />
       <ContactList
